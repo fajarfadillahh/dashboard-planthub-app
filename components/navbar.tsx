@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import {
   Avatar,
   Dropdown,
@@ -10,8 +9,6 @@ import {
 import { SignOut } from "@phosphor-icons/react";
 
 export default function Navbar() {
-  const router = useRouter();
-
   return (
     <nav className="bg-white px-6">
       <div className="flex h-20 items-center justify-end">
@@ -46,7 +43,7 @@ export default function Navbar() {
                 startContent={<SignOut weight="bold" size={18} />}
                 onClick={() => {
                   if (confirm("apakah anda yakin?")) {
-                    router.push("/auth/login");
+                    window.location.href = "/";
                   }
                 }}
                 className="font-bold text-danger-600"

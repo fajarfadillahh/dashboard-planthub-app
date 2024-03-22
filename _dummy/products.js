@@ -1,0 +1,32 @@
+export const products = [
+  {
+    id: 1,
+    name: "Lavender",
+    image: "/assets/img/product-img-1.png",
+    category: "Tanaman Hias",
+    stock: 300,
+    price: 129000,
+    price_discount: false,
+    status: "dijual",
+  },
+  {
+    id: 2,
+    name: "Kaktus Mini",
+    image: "/assets/img/product-img-2.png",
+    category: "Tanaman Hias",
+    stock: 150,
+    price: 99000,
+    price_discount: 109000,
+    status: "tidak dijual",
+  },
+  {
+    id: 3,
+    name: "Anggrek Ungu",
+    image: "/assets/img/product-img-3.png",
+    category: "Tanaman Hias",
+    stock: 0,
+    price: 119000,
+    price_discount: 149000,
+    status: "stok habis",
+  },
+];
