@@ -1,20 +1,37 @@
-import React from "react";
-import Head from "next/head";
-import Image from "next/image";
 import { Button, Input } from "@nextui-org/react";
 import { Lock, User } from "@phosphor-icons/react";
+import { signIn } from "next-auth/react";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React from "react";
 
 export default function Home() {
   const [loading, setLoading] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
 
-      return (window.location.href = "/dashboard");
-    }, 3000);
+    setLoading(false);
+
+    if (result?.error) {
+      const { error } = JSON.parse(result?.error);
+
+      alert(error.message);
+    }
+
+    if (result?.ok) {
+      return router.push("/dashboard");
+    }
   };
 
   return (
@@ -66,6 +83,7 @@ export default function Home() {
               startContent={
                 <User weight="bold" size={18} className="text-gray-500" />
               }
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <Input
@@ -79,6 +97,7 @@ export default function Home() {
               startContent={
                 <Lock weight="bold" size={18} className="text-gray-500" />
               }
+              onChange={(e) => setPassword(e.target.value)}
             />
 
             <Button
