@@ -17,7 +17,7 @@ export async function fetcher({
   file,
 }: FetcherParams) {
   const options = {
-    url: "https://apiplanthub.vercel.app" + url,
+    url: "https://apiph.vercel.app" + url,
     method,
   };
 
