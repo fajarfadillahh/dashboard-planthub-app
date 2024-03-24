@@ -38,7 +38,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 // dummy data
 import { products } from "@/_dummy/products";
 
-type Product = (typeof products)[0];
+type ProductType = (typeof products)[0];
 
 const columns = [
   { name: "Nama Produk", uid: "name", sortable: true },
@@ -58,9 +58,9 @@ export default function ProductPage() {
   });
 
   const sortedItems = React.useMemo(() => {
-    return [...products].sort((a: Product, b: Product) => {
-      const first = a[sortDescriptor.column as keyof Product] as number;
-      const second = b[sortDescriptor.column as keyof Product] as number;
+    return [...products].sort((a: ProductType, b: ProductType) => {
+      const first = a[sortDescriptor.column as keyof ProductType] as number;
+      const second = b[sortDescriptor.column as keyof ProductType] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
@@ -68,8 +68,8 @@ export default function ProductPage() {
   }, [sortDescriptor, products]);
 
   const renderCell = React.useCallback(
-    (product: Product, columnKey: React.Key) => {
-      const cellValue = product[columnKey as keyof Product];
+    (product: ProductType, columnKey: React.Key) => {
+      const cellValue = product[columnKey as keyof ProductType];
 
       switch (columnKey) {
         case "name":

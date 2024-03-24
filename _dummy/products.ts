@@ -1,4 +1,5 @@
 import { ProductType } from "@/types/product.type";
+import { BestSellingProduct } from "@/types/bestSellingProduct.type";
 
 export const products: ProductType[] = [
   {
@@ -33,5 +34,32 @@ export const products: ProductType[] = [
     price_discount: 100000,
     updated_at: "24 Mar 2023 12:29",
     status: "stok habis",
+  },
+];
+
+export const bestSellingProduct: BestSellingProduct[] = [
+  {
+    id: 1,
+    name: "Lavender",
+    image: "/assets/img/product-img-1.png",
+    category: "Tanaman Hias",
+    sold: 716,
+    seen: 517,
+  },
+  {
+    id: 2,
+    name: "Kaktus Mini",
+    image: "/assets/img/product-img-2.png",
+    category: "Tanaman Hias",
+    sold: 692,
+    seen: 440,
+  },
+  {
+    id: 3,
+    name: "Anggrek Ungu",
+    image: "/assets/img/product-img-3.png",
+    category: "Tanaman Hias",
+    sold: 591,
+    seen: 436,
   },
 ];
