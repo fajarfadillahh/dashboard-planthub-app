@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   Button,
   Chip,
@@ -44,14 +45,16 @@ const columns = [
   { name: "Kategori", uid: "category", sortable: false },
   { name: "Stok", uid: "stock", sortable: true },
   { name: "Harga", uid: "price", sortable: true },
+  { name: "Diperbarui Pada", uid: "updated_at", sortable: true },
   { name: "Status", uid: "status", sortable: true },
   { name: "Aksi", uid: "action", sortable: false },
 ];
 
-export default function Product() {
+export default function ProductPage() {
+  const router = useRouter();
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
+    column: "updated_at",
+    direction: "descending",
   });
 
   const sortedItems = React.useMemo(() => {
@@ -101,15 +104,27 @@ export default function Product() {
           );
         case "price":
           return (
-            <div className="grid">
-              <p className="text-sm font-medium text-gray-600">
-                {formatRupiah(product.price)}
-              </p>
-              {!product.price_discount ? null : (
-                <p className="text-[12px] font-medium text-red-500 line-through">
-                  {formatRupiah(product.price_discount)}
+            <>
+              {!product.price_discount ? (
+                <p className="text-sm font-medium text-gray-600">
+                  {formatRupiah(product.price)}
                 </p>
+              ) : (
+                <div className="grid">
+                  <p className="text-sm font-medium text-gray-600">
+                    {formatRupiah(product.price_discount)}
+                  </p>
+                  <p className="text-[12px] font-medium text-red-500 line-through">
+                    {formatRupiah(product.price)}
+                  </p>
+                </div>
               )}
+            </>
+          );
+        case "updated_at":
+          return (
+            <div className="text-sm font-medium text-gray-600">
+              {product.updated_at}
             </div>
           );
         case "status":
@@ -145,6 +160,7 @@ export default function Product() {
                   key="edit"
                   startContent={<NotePencil weight="bold" size={18} />}
                   className="text-sm font-medium text-gray-600"
+                  onClick={() => router.push(`/product/edit/${product.id}`)}
                 >
                   Edit produk
                 </DropdownItem>
@@ -203,6 +219,7 @@ export default function Product() {
 
             <Button
               endContent={<PlusCircle weight="bold" size={18} />}
+              onClick={() => router.push("/product/create")}
               className="bg-green-600 font-medium text-white"
             >
               Tambah produk

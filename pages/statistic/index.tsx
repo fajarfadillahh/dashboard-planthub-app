@@ -4,7 +4,7 @@ import Head from "next/head";
 import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
 
-export default function Statistic() {
+export default function StatisticPage() {
   return (
     <>
       <Head>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button, Input } from "@nextui-org/react";
 import { Lock, User } from "@phosphor-icons/react";
 
-export default function Home() {
+export default function HomePage() {
   const [loading, setLoading] = React.useState(false);
 
   const handleLogin = () => {
@@ -56,7 +56,6 @@ export default function Home() {
 
           <div className="mx-auto grid w-full max-w-[400px] gap-4">
             <Input
-              isRequired
               type="text"
               variant="flat"
               color="default"

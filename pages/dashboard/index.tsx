@@ -12,7 +12,7 @@ import {
 import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
     <>
       <Head>
