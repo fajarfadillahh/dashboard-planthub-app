@@ -1,6 +1,5 @@
-export type BannerType = {
+export type CategoryType = {
   id: string | number;
-  image: string;
   name: string;
   created_at: string;
 };

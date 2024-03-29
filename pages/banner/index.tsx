@@ -62,15 +62,13 @@ export default function BannerPage() {
             <div className="flex items-center gap-4">
               <Image
                 src={banner.image}
-                alt={banner.title}
+                alt={banner.name}
                 width={1280}
                 height={720}
                 priority
                 className="aspect-video h-[45px] w-[80px]"
               />
-              <p className="text-sm font-medium text-gray-600">
-                {banner.title}
-              </p>
+              <p className="text-sm font-medium text-gray-600">{banner.name}</p>
             </div>
           );
         case "created_at":
