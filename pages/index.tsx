@@ -1,10 +1,10 @@
-import { Button, Input } from "@nextui-org/react";
-import { Lock, User } from "@phosphor-icons/react";
-import { signIn } from "next-auth/react";
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import { signIn } from "next-auth/react";
+import { Button, Input } from "@nextui-org/react";
+import { Lock, User } from "@phosphor-icons/react";
 
 export default function HomePage() {
   const [loading, setLoading] = React.useState(false);

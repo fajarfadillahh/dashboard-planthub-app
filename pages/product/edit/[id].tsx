@@ -161,7 +161,7 @@ export default function EditPage() {
 
               <div className="grid grid-cols-4 gap-6">
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
@@ -170,7 +170,7 @@ export default function EditPage() {
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
@@ -179,7 +179,7 @@ export default function EditPage() {
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
@@ -188,7 +188,7 @@ export default function EditPage() {
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
@@ -197,7 +197,7 @@ export default function EditPage() {
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
@@ -206,7 +206,7 @@ export default function EditPage() {
                 </div>
 
                 <div className="flex flex-col justify-start gap-2">
-                  <div className="flex aspect-square items-center justify-center rounded-lg border border-dashed border-gray-600">
+                  <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100">
                     <Image weight="bold" size={42} className="text-gray-400" />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
