@@ -1,5 +1,5 @@
 import { ProductType } from "@/types/product.type";
-import { BestSellingProduct } from "@/types/bestSellingProduct.type";
+import { BestSellingProductType } from "@/types/bestSellingProduct.type";
 
 export const products: ProductType[] = [
   {
@@ -37,7 +37,7 @@ export const products: ProductType[] = [
   },
 ];
 
-export const bestSellingProduct: BestSellingProduct[] = [
+export const bestSellingProduct: BestSellingProductType[] = [
   {
     id: 1,
     name: "Lavender",

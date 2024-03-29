@@ -1,4 +1,4 @@
-export type BestSellingProduct = {
+export type BestSellingProductType = {
   id: number;
   name: string;
   image: string;
