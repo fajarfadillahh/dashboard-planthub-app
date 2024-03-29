@@ -59,7 +59,7 @@ export default function BannerPage() {
           );
         case "banner":
           return (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Image
                 src={banner.image}
                 alt={banner.title}
