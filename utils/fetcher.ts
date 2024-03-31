@@ -1,11 +1,10 @@
 import axios, { isAxiosError } from "axios";
-import { getSession } from "next-auth/react";
 
 type FetcherParams = {
   url: string;
   method: "GET" | "POST" | "PATCH" | "DELETE";
   data?: unknown;
-  token?: boolean;
+  token?: string;
   file?: boolean;
 };
 
@@ -26,11 +25,9 @@ export async function fetcher({
   }
 
   if (token) {
-    const session = await getSession();
-
     Object.assign(options, {
       headers: {
-        Authorization: `Bearer ${session?.user.access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   }

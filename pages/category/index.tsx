@@ -1,5 +1,3 @@
-import React from "react";
-import Head from "next/head";
 import {
   Button,
   Input,
@@ -12,16 +10,21 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { MagnifyingGlass, Trash } from "@phosphor-icons/react";
+import Head from "next/head";
+import { useState } from "react";
 
 // components
-import Layout from "@/components/wrapper/layout";
-import Container from "@/components/wrapper/container";
 import PopupCreateCategory from "@/components/popup/popupCreateCategory";
+import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
-// dummy data
-import { categories } from "@/_dummy/categories";
-
-type CategoryType = (typeof categories)[0];
+// utils
+import { CategoryType } from "@/types/category.type";
+import { fetcher } from "@/utils/fetcher";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
+import useSWR from "swr";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const columns = [
   { name: "ID", uid: "id", sortable: false },
@@ -30,21 +33,39 @@ const columns = [
   { name: "Aksi", uid: "action", sortable: false },
 ];
 
-export default function CategoryPage() {
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
+export default function CategoryPage({
+  token,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data, isLoading, mutate } = useSWR(
+    {
+      url: "/categories",
+      method: "GET",
+      token,
+    },
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    },
+  );
+
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "created_at",
     direction: "descending",
   });
 
-  const sortedItems = [...categories].sort(
-    (a: CategoryType, b: CategoryType) => {
-      const first = a[sortDescriptor.column as keyof CategoryType] as number;
-      const second = b[sortDescriptor.column as keyof CategoryType] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+  if (isLoading) {
+    return;
+  }
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    },
-  );
+  const categories: CategoryType[] = data.data;
+
+  const sortedItems = categories.sort((a: CategoryType, b: CategoryType) => {
+    const first = a[sortDescriptor.column as keyof CategoryType];
+    const second = b[sortDescriptor.column as keyof CategoryType];
+    const cmp = first < second ? -1 : first > second ? 1 : 0;
+
+    return sortDescriptor.direction === "descending" ? -cmp : cmp;
+  });
 
   const renderCell = (category: CategoryType, columnKey: React.Key) => {
     const cellValue = category[columnKey as keyof CategoryType];
@@ -63,7 +84,7 @@ export default function CategoryPage() {
       case "created_at":
         return (
           <div className="text-sm font-medium text-gray-600">
-            {category.created_at}
+            {new Date(category.created_at).toLocaleString()}
           </div>
         );
       case "action":
@@ -73,7 +94,7 @@ export default function CategoryPage() {
             variant="light"
             color="danger"
             size="sm"
-            onClick={() => confirm("apakah anda yakin?")}
+            onClick={() => deleteCategory(category.id)}
           >
             <Trash weight="bold" size={20} />
           </Button>
@@ -83,6 +104,22 @@ export default function CategoryPage() {
         return cellValue;
     }
   };
+
+  async function deleteCategory(id: string) {
+    if (!confirm("Apakah anda yakin?")) return;
+
+    try {
+      await fetcher({
+        url: "/categories/" + id,
+        method: "DELETE",
+        token,
+      });
+
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -102,7 +139,7 @@ export default function CategoryPage() {
               </p>
             </div>
 
-            <PopupCreateCategory />
+            <PopupCreateCategory mutate={mutate} />
           </div>
 
           <div className="grid gap-4">
@@ -167,3 +204,13 @@ export default function CategoryPage() {
     </>
   );
 }
+
+export const getServerSideProps = (async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  return {
+    props: {
+      token: session?.user.access_token,
+    },
+  };
+}) satisfies GetServerSideProps<{ token: string | undefined }>;
