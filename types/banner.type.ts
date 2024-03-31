@@ -1,6 +1,6 @@
 export type BannerType = {
   id: string | number;
   image: string;
-  name: string;
+  alt: string;
   created_at: string;
 };
