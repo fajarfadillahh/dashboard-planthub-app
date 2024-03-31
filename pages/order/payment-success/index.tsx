@@ -138,7 +138,7 @@ export default function PaymentSuccessPage() {
             <Table
               isHeaderSticky
               removeWrapper
-              aria-label="table category"
+              aria-label="table order"
               selectionMode="single"
               sortDescriptor={sortDescriptor}
               onSortChange={setSortDescriptor}
