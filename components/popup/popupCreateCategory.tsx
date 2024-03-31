@@ -1,3 +1,4 @@
+import { fetcher } from "@/utils/fetcher";
 import {
   Button,
   Input,
@@ -9,9 +10,40 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { PlusCircle } from "@phosphor-icons/react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { MutatorCallback } from "swr";
 
-export default function PopupCreateCategory() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+type PopupCreateCategoryProps = {
+  mutate: MutatorCallback;
+};
+
+export default function PopupCreateCategory({
+  mutate,
+}: PopupCreateCategoryProps) {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { data } = useSession();
+  const [name, setName] = useState<string>("");
+
+  async function createCategory() {
+    if (!name) {
+      return alert("Nama tidak boleh kosong");
+    }
+
+    try {
+      await fetcher({
+        url: "/categories",
+        method: "POST",
+        data: { name },
+        token: data?.user.access_token,
+      });
+
+      onClose();
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -43,6 +75,7 @@ export default function PopupCreateCategory() {
                   labelPlacement="outside"
                   label="Kategori"
                   placeholder="Tuliskan kategori..."
+                  onChange={(e) => setName(e.target.value)}
                 />
               </ModalBody>
 
@@ -56,8 +89,8 @@ export default function PopupCreateCategory() {
                   Batal
                 </Button>
                 <Button
-                  onPress={onClose}
                   className="bg-green-600 font-medium text-white"
+                  onClick={createCategory}
                 >
                   Tambah Kategori
                 </Button>
