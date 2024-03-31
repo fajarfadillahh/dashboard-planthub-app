@@ -38,64 +38,59 @@ export default function BannerPage() {
     direction: "descending",
   });
 
-  const sortedItems = React.useMemo(() => {
-    return [...banners].sort((a: BannerType, b: BannerType) => {
-      const first = a[sortDescriptor.column as keyof BannerType] as number;
-      const second = b[sortDescriptor.column as keyof BannerType] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+  const sortedItems = [...banners].sort((a: BannerType, b: BannerType) => {
+    const first = a[sortDescriptor.column as keyof BannerType] as number;
+    const second = b[sortDescriptor.column as keyof BannerType] as number;
+    const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, banners]);
+    return sortDescriptor.direction === "descending" ? -cmp : cmp;
+  });
 
-  const renderCell = React.useCallback(
-    (banner: BannerType, columnKey: React.Key) => {
-      const cellValue = banner[columnKey as keyof BannerType];
+  const renderCell = (banner: BannerType, columnKey: React.Key) => {
+    const cellValue = banner[columnKey as keyof BannerType];
 
-      switch (columnKey) {
-        case "id":
-          return (
-            <div className="text-sm font-medium text-gray-600">{banner.id}</div>
-          );
-        case "banner":
-          return (
-            <div className="flex items-center gap-4">
-              <Image
-                src={banner.image}
-                alt={banner.alt}
-                width={1280}
-                height={720}
-                priority
-                className="aspect-video h-[45px] w-[80px]"
-              />
-              <p className="text-sm font-medium text-gray-600">{banner.alt}</p>
-            </div>
-          );
-        case "created_at":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {banner.created_at}
-            </div>
-          );
-        case "action":
-          return (
-            <Button
-              isIconOnly
-              variant="light"
-              color="danger"
-              size="sm"
-              onClick={() => confirm("apakah anda yakin?")}
-            >
-              <Trash weight="bold" size={20} />
-            </Button>
-          );
+    switch (columnKey) {
+      case "id":
+        return (
+          <div className="text-sm font-medium text-gray-600">{banner.id}</div>
+        );
+      case "banner":
+        return (
+          <div className="flex items-center gap-4">
+            <Image
+              src={banner.image}
+              alt={banner.alt}
+              width={1280}
+              height={720}
+              priority
+              className="aspect-video h-[45px] w-[80px]"
+            />
+            <p className="text-sm font-medium text-gray-600">{banner.alt}</p>
+          </div>
+        );
+      case "created_at":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {banner.created_at}
+          </div>
+        );
+      case "action":
+        return (
+          <Button
+            isIconOnly
+            variant="light"
+            color="danger"
+            size="sm"
+            onClick={() => confirm("apakah anda yakin?")}
+          >
+            <Trash weight="bold" size={20} />
+          </Button>
+        );
 
-        default:
-          return cellValue;
-      }
-    },
-    [],
-  );
+      default:
+        return cellValue;
+    }
+  };
 
   return (
     <>

@@ -57,147 +57,140 @@ export default function ProductPage() {
     direction: "descending",
   });
 
-  const sortedItems = React.useMemo(() => {
-    return [...products].sort((a: ProductType, b: ProductType) => {
-      const first = a[sortDescriptor.column as keyof ProductType] as number;
-      const second = b[sortDescriptor.column as keyof ProductType] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+  const sortedItems = [...products].sort((a: ProductType, b: ProductType) => {
+    const first = a[sortDescriptor.column as keyof ProductType] as number;
+    const second = b[sortDescriptor.column as keyof ProductType] as number;
+    const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, products]);
+    return sortDescriptor.direction === "descending" ? -cmp : cmp;
+  });
 
-  const renderCell = React.useCallback(
-    (product: ProductType, columnKey: React.Key) => {
-      const cellValue = product[columnKey as keyof ProductType];
+  const renderCell = (product: ProductType, columnKey: React.Key) => {
+    const cellValue = product[columnKey as keyof ProductType];
 
-      switch (columnKey) {
-        case "name":
-          return (
-            <div className="flex items-center gap-2">
-              <div className="h-12 w-12 overflow-hidden rounded border border-gray-200">
-                <Image
-                  src={product.image}
-                  alt="product image"
-                  width={100}
-                  height={150}
-                  priority
-                  className="object-contain object-center"
-                />
-              </div>
+    switch (columnKey) {
+      case "name":
+        return (
+          <div className="flex items-center gap-2">
+            <div className="h-12 w-12 overflow-hidden rounded border border-gray-200">
+              <Image
+                src={product.image}
+                alt="product image"
+                width={100}
+                height={150}
+                priority
+                className="object-contain object-center"
+              />
+            </div>
+            <p className="text-sm font-medium text-gray-600">{product.name}</p>
+          </div>
+        );
+      case "category":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.category}
+          </div>
+        );
+      case "stock":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.stock}
+          </div>
+        );
+      case "price":
+        return (
+          <>
+            {!product.price_discount ? (
               <p className="text-sm font-medium text-gray-600">
-                {product.name}
+                {formatRupiah(product.price)}
               </p>
-            </div>
-          );
-        case "category":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.category}
-            </div>
-          );
-        case "stock":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.stock}
-            </div>
-          );
-        case "price":
-          return (
-            <>
-              {!product.price_discount ? (
+            ) : (
+              <div className="grid">
                 <p className="text-sm font-medium text-gray-600">
+                  {formatRupiah(product.price_discount)}
+                </p>
+                <p className="text-[12px] font-medium text-red-500 line-through">
                   {formatRupiah(product.price)}
                 </p>
-              ) : (
-                <div className="grid">
-                  <p className="text-sm font-medium text-gray-600">
-                    {formatRupiah(product.price_discount)}
-                  </p>
-                  <p className="text-[12px] font-medium text-red-500 line-through">
-                    {formatRupiah(product.price)}
-                  </p>
-                </div>
-              )}
-            </>
-          );
-        case "updated_at":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.updated_at}
-            </div>
-          );
-        case "status":
-          return (
-            <Chip
-              variant="flat"
-              size="sm"
-              color={
-                product.status === "dijual"
-                  ? "success"
-                  : product.status === "tidak dijual"
-                    ? "default"
-                    : "danger"
-              }
-              classNames={{
-                content: "capitalize font-semibold",
-              }}
-            >
-              {product.status}
-            </Chip>
-          );
-        case "action":
-          return (
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly variant="light" size="sm">
-                  <DotsThreeVertical weight="bold" size={20} />
-                </Button>
-              </DropdownTrigger>
+              </div>
+            )}
+          </>
+        );
+      case "updated_at":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.updated_at}
+          </div>
+        );
+      case "status":
+        return (
+          <Chip
+            variant="flat"
+            size="sm"
+            color={
+              product.status === "dijual"
+                ? "success"
+                : product.status === "tidak dijual"
+                  ? "default"
+                  : "danger"
+            }
+            classNames={{
+              content: "capitalize font-semibold",
+            }}
+          >
+            {product.status}
+          </Chip>
+        );
+      case "action":
+        return (
+          <Dropdown>
+            <DropdownTrigger>
+              <Button isIconOnly variant="light" size="sm">
+                <DotsThreeVertical weight="bold" size={20} />
+              </Button>
+            </DropdownTrigger>
 
-              <DropdownMenu aria-label="Static Actions">
-                <DropdownItem
-                  key="edit"
-                  startContent={<NotePencil weight="bold" size={18} />}
-                  className="text-sm font-medium text-gray-600"
-                  onClick={() => router.push(`/product/edit/${product.id}`)}
-                >
-                  Edit produk
-                </DropdownItem>
-                <DropdownItem
-                  key="not-sale"
-                  startContent={
-                    product.status === "tidak dijual" ? (
-                      <CheckCircle weight="bold" size={18} />
-                    ) : (
-                      <XCircle weight="bold" size={18} />
-                    )
-                  }
-                  className="text-sm font-medium text-gray-600"
-                >
-                  {product.status === "tidak dijual"
-                    ? "Produk dijual"
-                    : "Produk tidak dijual"}
-                </DropdownItem>
-                <DropdownItem
-                  key="delete"
-                  color="danger"
-                  startContent={<Trash weight="bold" size={18} />}
-                  className="text-sm font-medium text-danger-500"
-                  onClick={() => confirm("apakah anda yakin?")}
-                >
-                  Hapus produk
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          );
+            <DropdownMenu aria-label="Static Actions">
+              <DropdownItem
+                key="edit"
+                startContent={<NotePencil weight="bold" size={18} />}
+                className="text-sm font-medium text-gray-600"
+                onClick={() => router.push(`/product/edit/${product.id}`)}
+              >
+                Edit produk
+              </DropdownItem>
+              <DropdownItem
+                key="not-sale"
+                startContent={
+                  product.status === "tidak dijual" ? (
+                    <CheckCircle weight="bold" size={18} />
+                  ) : (
+                    <XCircle weight="bold" size={18} />
+                  )
+                }
+                className="text-sm font-medium text-gray-600"
+              >
+                {product.status === "tidak dijual"
+                  ? "Produk dijual"
+                  : "Produk tidak dijual"}
+              </DropdownItem>
+              <DropdownItem
+                key="delete"
+                color="danger"
+                startContent={<Trash weight="bold" size={18} />}
+                className="text-sm font-medium text-danger-500"
+                onClick={() => confirm("apakah anda yakin?")}
+              >
+                Hapus produk
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        );
 
-        default:
-          return cellValue;
-      }
-    },
-    [],
-  );
+      default:
+        return cellValue;
+    }
+  };
 
   return (
     <>

@@ -36,83 +36,79 @@ export default function StatisticPage() {
     direction: "descending",
   });
 
-  const sortedItems = React.useMemo(() => {
-    return [...bestSellingProduct].sort(
-      (a: BestSellingProductType, b: BestSellingProductType) => {
-        const first = a[
-          sortDescriptor.column as keyof BestSellingProductType
-        ] as number;
-        const second = b[
-          sortDescriptor.column as keyof BestSellingProductType
-        ] as number;
-        const cmp = first < second ? -1 : first > second ? 1 : 0;
+  const sortedItems = [...bestSellingProduct].sort(
+    (a: BestSellingProductType, b: BestSellingProductType) => {
+      const first = a[
+        sortDescriptor.column as keyof BestSellingProductType
+      ] as number;
+      const second = b[
+        sortDescriptor.column as keyof BestSellingProductType
+      ] as number;
+      const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-        return sortDescriptor.direction === "descending" ? -cmp : cmp;
-      },
-    );
-  }, [sortDescriptor, bestSellingProduct]);
-
-  const renderCell = React.useCallback(
-    (product: BestSellingProductType, columnKey: React.Key) => {
-      const cellValue = product[columnKey as keyof BestSellingProductType];
-
-      switch (columnKey) {
-        case "name":
-          return (
-            <div className="flex items-center gap-2">
-              <div className="h-12 w-12 overflow-hidden rounded border border-gray-200">
-                <Image
-                  src={product.image}
-                  alt="product image"
-                  width={100}
-                  height={150}
-                  priority
-                  className="object-contain object-center"
-                />
-              </div>
-              <p className="text-sm font-medium text-gray-600">
-                {product.name}
-              </p>
-            </div>
-          );
-        case "category":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.category}
-            </div>
-          );
-        case "sold":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.sold}
-            </div>
-          );
-        case "seen":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {product.seen}
-            </div>
-          );
-        case "action":
-          return (
-            <div className="w-max">
-              <Button
-                variant="light"
-                size="sm"
-                color="success"
-                startContent={<Eye weight="bold" size={18} />}
-              >
-                Lihat produk
-              </Button>
-            </div>
-          );
-
-        default:
-          return cellValue;
-      }
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
     },
-    [],
   );
+
+  const renderCell = (
+    product: BestSellingProductType,
+    columnKey: React.Key,
+  ) => {
+    const cellValue = product[columnKey as keyof BestSellingProductType];
+
+    switch (columnKey) {
+      case "name":
+        return (
+          <div className="flex items-center gap-2">
+            <div className="h-12 w-12 overflow-hidden rounded border border-gray-200">
+              <Image
+                src={product.image}
+                alt="product image"
+                width={100}
+                height={150}
+                priority
+                className="object-contain object-center"
+              />
+            </div>
+            <p className="text-sm font-medium text-gray-600">{product.name}</p>
+          </div>
+        );
+      case "category":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.category}
+          </div>
+        );
+      case "sold":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.sold}
+          </div>
+        );
+      case "seen":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {product.seen}
+          </div>
+        );
+      case "action":
+        return (
+          <div className="w-max">
+            <Button
+              variant="light"
+              size="sm"
+              color="success"
+              startContent={<Eye weight="bold" size={18} />}
+            >
+              Lihat produk
+            </Button>
+          </div>
+        );
+
+      default:
+        return cellValue;
+    }
+  };
 
   return (
     <>

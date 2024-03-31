@@ -36,58 +36,53 @@ export default function CategoryPage() {
     direction: "descending",
   });
 
-  const sortedItems = React.useMemo(() => {
-    return [...categories].sort((a: CategoryType, b: CategoryType) => {
+  const sortedItems = [...categories].sort(
+    (a: CategoryType, b: CategoryType) => {
       const first = a[sortDescriptor.column as keyof CategoryType] as number;
       const second = b[sortDescriptor.column as keyof CategoryType] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, categories]);
-
-  const renderCell = React.useCallback(
-    (category: CategoryType, columnKey: React.Key) => {
-      const cellValue = category[columnKey as keyof CategoryType];
-
-      switch (columnKey) {
-        case "id":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {category.id}
-            </div>
-          );
-        case "name":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {category.name}
-            </div>
-          );
-        case "created_at":
-          return (
-            <div className="text-sm font-medium text-gray-600">
-              {category.created_at}
-            </div>
-          );
-        case "action":
-          return (
-            <Button
-              isIconOnly
-              variant="light"
-              color="danger"
-              size="sm"
-              onClick={() => confirm("apakah anda yakin?")}
-            >
-              <Trash weight="bold" size={20} />
-            </Button>
-          );
-
-        default:
-          return cellValue;
-      }
     },
-    [],
   );
+
+  const renderCell = (category: CategoryType, columnKey: React.Key) => {
+    const cellValue = category[columnKey as keyof CategoryType];
+
+    switch (columnKey) {
+      case "id":
+        return (
+          <div className="text-sm font-medium text-gray-600">{category.id}</div>
+        );
+      case "name":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {category.name}
+          </div>
+        );
+      case "created_at":
+        return (
+          <div className="text-sm font-medium text-gray-600">
+            {category.created_at}
+          </div>
+        );
+      case "action":
+        return (
+          <Button
+            isIconOnly
+            variant="light"
+            color="danger"
+            size="sm"
+            onClick={() => confirm("apakah anda yakin?")}
+          >
+            <Trash weight="bold" size={20} />
+          </Button>
+        );
+
+      default:
+        return cellValue;
+    }
+  };
 
   return (
     <>
