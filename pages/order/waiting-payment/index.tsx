@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import {
   Button,
   Input,
@@ -34,6 +35,7 @@ const columns = [
 ];
 
 export default function WaitingPaymentPage() {
+  const router = useRouter();
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "order_time",
     direction: "descending",
@@ -81,6 +83,9 @@ export default function WaitingPaymentPage() {
             variant="light"
             color="success"
             startContent={<Eye weight="bold" size={16} />}
+            onClick={() =>
+              router.push(`/order/waiting-payment/details/${order.id}`)
+            }
             className="font-medium"
           >
             Detail
