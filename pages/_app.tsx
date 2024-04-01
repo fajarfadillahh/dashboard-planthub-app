@@ -4,6 +4,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider, getSession, signOut } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 
 export default function App({
@@ -32,6 +33,11 @@ export default function App({
   return (
     <SessionProvider session={session} refetchOnWindowFocus={false}>
       <NextUIProvider>
+        <NextNProgress
+          color="#16a34a"
+          height={4}
+          options={{ showSpinner: false }}
+        />
         <Component {...pageProps} />
       </NextUIProvider>
     </SessionProvider>
