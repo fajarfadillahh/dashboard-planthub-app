@@ -20,6 +20,7 @@ import Layout from "@/components/wrapper/layout";
 
 // utils
 import { CategoryType } from "@/types/category.type";
+import { convertTime } from "@/utils/convert";
 import { fetcher } from "@/utils/fetcher";
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
@@ -84,7 +85,7 @@ export default function CategoryPage({
       case "created_at":
         return (
           <div className="text-sm font-medium text-gray-600">
-            {new Date(category.created_at).toLocaleString()}
+            {convertTime(category.created_at)}
           </div>
         );
       case "action":
