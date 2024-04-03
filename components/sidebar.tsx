@@ -1,6 +1,3 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import {
   ArchiveBox,
   CalendarX,
@@ -14,11 +11,34 @@ import {
   PaperPlaneTilt,
   WarningCircle,
 } from "@phosphor-icons/react";
+import Image from "next/image";
+import Link from "next/link";
 
 // components
 import ButtonSidebar from "@/components/button/buttonSidebar";
+import { StatusType } from "@/types/status.type";
+import { fetcher } from "@/utils/fetcher";
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
 
 export default function Sidebar() {
+  const session = useSession();
+
+  const response = useSWR(
+    {
+      url: "/status",
+      method: "GET",
+      token: session.data?.user.access_token,
+    },
+    fetcher,
+    {
+      refreshInterval: 1000 * 60,
+      revalidateOnFocus: false,
+    },
+  );
+
+  const status: StatusType = response.data ? response.data.data : null;
+
   return (
     <div className="flex h-full min-w-[250px] flex-col gap-[30px] bg-gray-50 px-[20px] py-[30px]">
       <Link href="/" className="inline-flex items-center justify-center gap-2">
@@ -85,49 +105,49 @@ export default function Sidebar() {
                 label="Belum Dibayar"
                 path="/order/waiting-payment"
                 icon={<ClockCountdown weight="bold" size={20} />}
-                amountData={1}
+                amountData={status ? status.waiting_payment : 0}
               />
 
               <ButtonSidebar
                 label="Sudah Dibayar"
                 path="/order/payment-success"
                 icon={<CheckCircle weight="bold" size={20} />}
-                amountData={0}
+                amountData={status ? status.success_payment : 0}
               />
 
               <ButtonSidebar
                 label="Gagal Dibayar"
                 path="/order/payment-failed"
                 icon={<WarningCircle weight="bold" size={20} />}
-                amountData={0}
+                amountData={status ? status.failed_payment : 0}
               />
 
               <ButtonSidebar
                 label="Siap Dikirim"
                 path="/order/process"
                 icon={<ArchiveBox weight="bold" size={20} />}
-                amountData={0}
+                amountData={status ? status.order_processing : 0}
               />
 
               <ButtonSidebar
                 label="Dikirim"
                 path="/order/delivery"
                 icon={<PaperPlaneTilt weight="bold" size={20} />}
-                amountData={1}
+                amountData={status ? status.order_delivered : 0}
               />
 
               <ButtonSidebar
                 label="Selesai"
                 path="/order/completed"
                 icon={<ListChecks weight="bold" size={20} />}
-                amountData={0}
+                amountData={status ? status.order_completed : 0}
               />
 
               <ButtonSidebar
                 label="Kadaluarsa"
                 path="/order/expired"
                 icon={<CalendarX weight="bold" size={20} />}
-                amountData={0}
+                amountData={status ? status.order_expired : 0}
               />
             </div>
           </div>
