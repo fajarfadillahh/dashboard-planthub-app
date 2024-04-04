@@ -1,11 +1,11 @@
-import Head from "next/head";
 import { Button, Input } from "@nextui-org/react";
 import { Image, PlusCircle } from "@phosphor-icons/react";
+import Head from "next/head";
 
 // components
-import Layout from "@/components/wrapper/layout";
-import Container from "@/components/wrapper/container";
 import ButtonBack from "@/components/button/buttonBack";
+import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 export default function CreatePage() {
   return (
@@ -39,7 +39,12 @@ export default function CreatePage() {
                 </label>
                 <div className="flex aspect-video items-center justify-center rounded-lg bg-gray-100 transition-all hover:bg-gray-200">
                   <div className="flex flex-col items-center gap-2">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                     <p className="text-sm font-medium italic text-gray-400">
                       Ketuk atau tarik untuk menambahkan banner.
                     </p>

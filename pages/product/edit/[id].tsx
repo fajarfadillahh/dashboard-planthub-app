@@ -1,5 +1,3 @@
-import React from "react";
-import Head from "next/head";
 import {
   Button,
   Checkbox,
@@ -9,11 +7,13 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { FloppyDisk, Image } from "@phosphor-icons/react";
+import Head from "next/head";
+import React from "react";
 
 // components
-import Layout from "@/components/wrapper/layout";
-import Container from "@/components/wrapper/container";
 import ButtonBack from "@/components/button/buttonBack";
+import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 interface CategoriesProps {
   id: number;
@@ -162,7 +162,12 @@ export default function EditPage() {
               <div className="grid grid-cols-4 gap-6">
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto utama
@@ -171,7 +176,12 @@ export default function EditPage() {
 
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto tampak samping
@@ -180,7 +190,12 @@ export default function EditPage() {
 
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto tampak depan & belakang
@@ -189,7 +204,12 @@ export default function EditPage() {
 
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto tampak atas & bawah
@@ -198,7 +218,12 @@ export default function EditPage() {
 
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto lainnya
@@ -207,7 +232,12 @@ export default function EditPage() {
 
                 <div className="flex flex-col justify-start gap-2">
                   <div className="flex aspect-square items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 transition-all hover:bg-gray-200">
-                    <Image weight="bold" size={42} className="text-gray-400" />
+                    <Image
+                      alt="test alt"
+                      weight="bold"
+                      size={42}
+                      className="text-gray-400"
+                    />
                   </div>
                   <p className="text-center text-[12px] font-medium text-gray-600">
                     Foto lainnya 2
