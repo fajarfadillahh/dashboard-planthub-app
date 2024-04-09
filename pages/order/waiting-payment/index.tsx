@@ -1,6 +1,3 @@
-import React from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
 import {
   Button,
   Input,
@@ -13,10 +10,13 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { Eye, MagnifyingGlass } from "@phosphor-icons/react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React from "react";
 
 // components
-import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 // utils
 import { formatRupiah } from "@/utils/formatRupiah";

@@ -1,10 +1,10 @@
 import Head from "next/head";
 
 // components
-import Layout from "@/components/wrapper/layout";
-import Container from "@/components/wrapper/container";
 import ButtonBack from "@/components/button/buttonBack";
 import DetailsOrder from "@/components/detailsOrder";
+import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 export default function OrderDetails() {
   return (

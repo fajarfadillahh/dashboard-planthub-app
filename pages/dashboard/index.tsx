@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import {
   ArrowDownRight,
@@ -7,10 +5,12 @@ import {
   ArrowUpRight,
   Eye,
 } from "@phosphor-icons/react";
+import Head from "next/head";
+import Link from "next/link";
 
 // components
-import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 export default function DashboardPage() {
   return (

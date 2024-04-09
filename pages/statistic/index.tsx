@@ -1,6 +1,3 @@
-import React from "react";
-import Head from "next/head";
-import Image from "next/image";
 import {
   Button,
   SortDescriptor,
@@ -12,10 +9,13 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { Eye } from "@phosphor-icons/react";
+import Head from "next/head";
+import Image from "next/image";
+import React from "react";
 
 // components
-import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 // dummy data
 import { bestSellingProduct } from "@/_dummy/products";

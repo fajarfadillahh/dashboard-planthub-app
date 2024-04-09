@@ -1,7 +1,3 @@
-import React from "react";
-import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import {
   Button,
   Input,
@@ -14,10 +10,14 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { MagnifyingGlass, PlusCircle, Trash } from "@phosphor-icons/react";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React from "react";
 
 // components
-import Layout from "@/components/wrapper/layout";
 import Container from "@/components/wrapper/container";
+import Layout from "@/components/wrapper/layout";
 
 // dummy data
 import { banners } from "@/_dummy/banners";
